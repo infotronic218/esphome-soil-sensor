@@ -1,0 +1,53 @@
+esphome:
+  name: soil-sensor-teros-12-on-esp32
+  includes:
+   
+  libraries:
+    - srgdamia1/SDI-12@^2.1.4
+    - EspSoftwareSerial
+    
+external_components:
+  - source: 
+      type: local
+      path: components
+    components: [soil_sensor_teros12]
+
+esp32:
+  board: esp-wrover-kit
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: "testing"
+
+ota:
+  password: "testing"
+
+wifi:
+  ssid: "Bbox-727DF9A6"
+  password: "c7HwHdEL33bhCJ4fVm"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esp32-For-Testing-Mlx9060"
+    password: "Rhg1rO0ix8Oz"
+
+captive_portal:
+
+# TDR Soil Sensor 
+soil_sensor_teros12:
+  - id: TDR0
+    pin_data: 12 # tx pin for the UART 
+    update_interval: 10s # update interval of the measurement 
+    
+    
+    
+
+
+#sensors:
+web_server:
+  port: 80
