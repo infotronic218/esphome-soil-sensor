@@ -42,11 +42,11 @@ namespace esphome {
         delay(30);
 
         ESP_LOGI(TAG,"  --");
-        ESP_LOGI(TAG,"%d",i);
+        ESP_LOGI(TAG,"%c",i);
         ESP_LOGI(TAG, "--  ");
 
         while (sdi->available()) {
-          ESP_LOGI(TAG,sdi->read());
+          ESP_LOGI(TAG,"%d",sdi->read());
           delay(10);  // 1 character ~ 7.5ms
         }
 
@@ -60,13 +60,13 @@ namespace esphome {
 
       for (int j = 0; j < 3; j++) {  // goes through three rapid contact attempts
         sdi->sendCommand(myCommand);
-        sdi.clearBuffer();
+        sdi->clearBuffer();
         delay(30);
         if (sdi->available()) {  // If we here anything, assume we have an active sensor
           return true;
         }
   }
-  sdi.clearBuffer();
+  sdi->clearBuffer();
   return false;
 
     }
