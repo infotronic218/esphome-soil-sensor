@@ -41,7 +41,7 @@ captive_portal:
 # TDR Soil Sensor 
 soil_sensor_teros12:
   - id: TDR0
-    pin_data: 12 # tx pin for the UART 
+    pin_data: 26 # tx pin for the UART 
     update_interval: 10s # update interval of the measurement 
 
 #sensors:

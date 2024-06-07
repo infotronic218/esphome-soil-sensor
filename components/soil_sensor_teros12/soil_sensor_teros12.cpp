@@ -16,6 +16,7 @@ namespace esphome {
   namespace  soil_sensor_teros12_{
      void Soil_Sensor_Teros12::setup(){
       ESP_LOGI(TAG, "Initialization");
+      pinMode(this->pin_data, INPUT);
       this->serialSDI12 =  new SDI12(this->pin_data);
       this->serialSDI12->begin();
      };
@@ -29,7 +30,8 @@ namespace esphome {
      /** Read and publish data to the sensors
      */
      void Soil_Sensor_Teros12::update(){
-         ESP_LOGI(TAG, "Starting new measurement from the sensor");
+        ESP_LOGI(TAG, "Starting new measurement from the sensor");
+        scanAddressSpace(this->serialSDI12);
      };  
 
 
