@@ -3,13 +3,14 @@ esphome:
   includes:
    
   libraries:
+    - srgdamia1/SDI-12@^2.1.1
     - EspSoftwareSerial
     
 external_components:
   - source: 
       type: local
       path: components
-    components: [soil_sensor_teros12]
+    components: [soil_sensor_teros12_old]
 
 esp32:
   board: esp-wrover-kit
@@ -37,11 +38,11 @@ wifi:
 
 captive_portal:
 
-# TEROS 12 Soil Sensor 
+# TDR Soil Sensor 
 soil_sensor_teros12:
-  - id: tero12
-    pin_data: 26 # pin where the sensor data is connected 
-    update_interval: 60s # update interval of the measurement 
+  - id: TDR0
+    pin_data: 26 # tx pin for the UART 
+    update_interval: 10s # update interval of the measurement 
 
 #sensors:
 web_server:

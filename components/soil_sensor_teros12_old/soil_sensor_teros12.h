@@ -13,7 +13,7 @@ https://scienceinhydroponics.com/2023/01/connecting-a-low-cost-tdr-moisture-cont
 //#include "esphome/components/switch/switch.h"
 #include<Arduino.h>
 
-#include"esp32-sdi12.h"
+#include<SDI12.h>
 namespace esphome {
   namespace  soil_sensor_teros12_{
      class Soil_Sensor_Teros12 : public PollingComponent{
@@ -27,15 +27,17 @@ namespace esphome {
        uint8_t pin_rx ;
        uint8_t pin_de ;
        uint8_t pin_re ;
-       ESP32_SDI12 *serialSDI12;
+       SDI12 *serialSDI12;
        public:
        void setup() override;
        void update() override ;
        void dump_config() override;
        float get_setup_priority() const override { return esphome::setup_priority::HARDWARE; }
        
-      void scanBus();
-      void readSensors();
+       void printInfo(SDI12 *sdi, char i);
+       boolean checkActive(SDI12 *sdi, char i);
+       void scanAddressSpace(SDI12 *sdi);
+
        /*void set_temperature_sensor(sensor::Sensor *s){this->temperature_sensor_ = s ;}
        void set_humidity_sensor(sensor::Sensor *s ){this->humidity_sensor_ = s ;}
        void set_ec_sensor(sensor::Sensor *s) {this->ec_sensor_ = s ;}
