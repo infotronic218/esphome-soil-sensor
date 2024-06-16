@@ -41,6 +41,18 @@ captive_portal:
 soil_sensor_teros12:
   - id: tero12
     pin_data: 26 # pin where the sensor data is connected 
+    scan_mode: # Switch to scan the bus on found SDI devices. The switch is optional when you know the sensor address
+      name: "Scan Switch"
+    address: 1  # address of the sensor
+    
+    temperature:  # Soil temperature 
+      name: "Soil temperature"
+    
+    ec: # Electrical Conductivity
+      name: "Soil EC"
+    vwc:  # Volumetric Water Content
+      name: "Soil Volumetric Water Content"
+
     update_interval: 60s # update interval of the measurement 
 
 #sensors:

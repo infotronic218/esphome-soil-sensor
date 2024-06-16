@@ -37,7 +37,17 @@ private:
     // Message buffer for response
     char msg_buf[MAX_RES_SIZE+1] = {0};
 
-    // List of available SDI-12 commands
+   
+
+    // SDI-12 measure response structure
+    struct Measure {
+        uint8_t address;
+        uint16_t delay_time;
+        uint8_t n_values;
+    };
+
+public:
+ // List of available SDI-12 commands
     enum Commands {
         // aM! (Measure)
         SDI12_Measure           =       0x00,
@@ -62,15 +72,6 @@ private:
         // aAb! (Change Address)
         SDI12_Change_Address    =       0x0A
     };
-
-    // SDI-12 measure response structure
-    struct Measure {
-        uint8_t address;
-        uint16_t delay_time;
-        uint8_t n_values;
-    };
-
-public:
     // Status information for SDI-12 requests and data parsing in the
     // ESP32-SDI12 library
     enum Status {
@@ -129,15 +130,17 @@ public:
                          uint8_t newAddress);
     Status measure(uint8_t address, float* values, size_t max_values,
                    uint8_t* num_returned_values = nullptr);
+    
+    Status querySensor(uint8_t address, Commands cmd, uint8_t position = 0,
+                       uint8_t newAddress = 0);
 
     // Default SDI-12 pin (should error if uninitialized as
     // `SDI12_INVALID_ADDR`)
     int8_t sdi12_pin = -1;
 
 private:
-    Status waitForResponse(uint32_t timeout = 150);
-    Status querySensor(uint8_t address, Commands cmd, uint8_t position = 0,
-                       uint8_t newAddress = 0);
+    Status waitForResponse(uint32_t timeout = 125);
+
     static Status validAddress(uint8_t address);
     Status requestMeasure(uint8_t address, Measure* measure);
     Status requestData(uint8_t address, uint8_t position);
